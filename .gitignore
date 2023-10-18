@@ -1,6 +1,6 @@
 # Files
 .DS_Store
-
+secrets.yml
 
 # Directories
 /data
