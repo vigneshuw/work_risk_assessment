@@ -18,7 +18,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.neighbors import KernelDensity
 
-
+from lib import model_evaluations
 
 class Models:
 
