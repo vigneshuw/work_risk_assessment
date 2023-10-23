@@ -5,3 +5,6 @@ secrets.yml
 # Directories
 /data
 /.idea
+
+# Python Native
+__pycache__
