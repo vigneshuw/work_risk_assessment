@@ -89,6 +89,36 @@ def compute_time_frequency_features(x, args):
     return time_frequency_features
 
 
+def compute_time_and_frequency_features(x, freq_args):
+    """
+    Compute all the frequency domain features
+
+    :param x: A time series dataset
+    :param freq_args: A list of dictionary of arguments for each of the methods
+    :return: A list of time domain and frequency domain features combined together
+    """
+
+    time_features = compute_time_domain_features(x)
+    freq_features = compute_frequency_domain_features(x, freq_args)
+
+    return time_features + freq_features
+
+
+def compute_frequency_and_time_frequency_features(x, freq_args, freq_time_args):
+    """
+
+    :param x: A time series segmented data
+    :param freq_args: A list of dictionary of arguments for each of the frequency features methods
+    :param freq_time_args: A list of dictionary of arguments for each of the time-frequency methods
+    :return: A list combined in the order of time, frequency, and time-frequency
+    """
+
+    freq_features = compute_frequency_domain_features(x, freq_args)
+    freq_time_features = compute_time_frequency_features(x, freq_time_args)
+
+    return freq_features + freq_time_features
+
+
 def compute_all_features(x, freq_args, freq_time_args):
 
     """
