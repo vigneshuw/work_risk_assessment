@@ -8,9 +8,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import BaggingClassifier
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.neural_network import MLPClassifier
 from sklearn import preprocessing
 from sklearn.base import clone
 from sklearn.model_selection import GridSearchCV
@@ -30,7 +31,8 @@ class Models:
         self.trained_model_dict = {}
         # List of available models
         self.model_list = ["LogisticRegression", "DecisionTreeClassifier", "KNeighborsClassifier", "BaggingClassifier",
-                           "RandomForestClassifier", "SVC", "MultinomialNB", "GridSearchCV"]
+                           "RandomForestClassifier", "SVC", "MultinomialNB", "GradientBoostingClassifier",
+                           "AdaBoostClassifier", "MLPClassifier"]
 
         # Scores
         self.scores = {}
@@ -90,6 +92,19 @@ class Models:
         # Multinomial NB
         if "MultinomialNB" in kwargs.keys():
             self.model_dict["MultinomialNB"] = MultinomialNB(**kwargs["MultinomialNB"])
+
+        # Gradient Boosting Classifier
+        if "GradientBoostingClassifier" in kwargs.keys():
+            self.model_dict["GradientBoostingClassifier"] = GradientBoostingClassifier(
+                **kwargs["GradientBoostingClassifier"])
+
+        # AdaBoostClassifier
+        if "AdaBoostClassifier" in kwargs.keys():
+            self.model_dict["AdaBoostClassifier"] = AdaBoostClassifier(**kwargs["AdaBoostClassifier"])
+
+        # MLPClassifier
+        if "MLPClassifier" in kwargs.keys():
+            self.model_dict["MLPClassifier"] = MLPClassifier(**kwargs["MLPClassifier"])
 
         # Set the initialization flag
         self.is_initialized = True
@@ -297,7 +312,7 @@ class Models:
         self.best_model = self.trained_model_dict[self.best_model_name]
         self.best_score = best_score
 
-    def optimize_hyperparameters(self, hyperparameters, X_train, y_train, scoring=None, standardize=False):
+    def optimize_hyperparameters(self, hyperparameters, X_train, y_train, cv=10, scoring=None, standardize=False):
 
         if scoring is None:
             scoring = "f1_micro"
@@ -309,7 +324,7 @@ class Models:
         for model_name in hyperparameters.keys():
 
             # Fit the model
-            clf = GridSearchCV(self.model_dict[model_name], hyperparameters[model_name], cv=10, scoring=scoring)
+            clf = GridSearchCV(self.model_dict[model_name], hyperparameters[model_name], cv=cv, scoring=scoring)
             clf.fit(X_train, y_train)
 
             # Ideal best model
