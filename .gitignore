@@ -3,11 +3,11 @@
 secrets.yml
 
 # Directories
-/data
+/data/**
 /.idea
 
 # Python Native
 __pycache__
 
 # Excluded files
-!README.md
+!**/README.md
