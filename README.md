@@ -22,6 +22,10 @@ The work has been published in NAMRC52, and the citation can be found below,
 
 - `model_development.ipynb`: Jupyter notebook to initiate model training and evaluation.
 
+- `training_config.yml`: The configuration file for model training that can be used to control the training process. The `training.py` file updates the training process based on the information inside the configuration file.
+
+- `training.py`: Python file for training and saving the trained models. Additionally, the file saves the CV training results 
+
 ## Running the Code
 
 To run the code in this repository, follow these steps
@@ -49,6 +53,9 @@ For the data used to train the models, please reach out to the authors of the pa
 ## TODO
 
 - [ ] More Information on the work performed
+- [ ] Ability to use the same code for training custom sensor dataset
+- [ ] Ability to use the trained models to make inference on a custom dataset
+- [ ] Update the Acknowledgement and Citations
 
 ## Acknowledgement
 
