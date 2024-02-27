@@ -1,0 +1,70 @@
+sensor_combinations:
+  - acc-X
+  - acc-Y
+  - acc-Z
+  - gyr-X
+  - gyr-Y
+  - gyr-Z
+
+segmentation:
+  window: !!float 1.0
+  overlap: !!float 0.75
+
+# Based on the NIOSH Equation
+data_labels:
+    Crate-W2: !!int 0
+    Crate-W5: !!int 0
+    Crate-W10: !!int 0
+    Crate-W15: !!int 0
+    Crate-W20: !!int 1
+    Crate-W30: !!int 1
+    CardboardBox-W2: !!int 0
+    CardboardBox-W5: !!int 0
+    CardboardBox-W10: !!int 0
+    CardboardBox-W15: !!int 0
+    CardboardBox-W20: !!int 1
+    CardboardBox-W30: !!int 1
+
+# Model parameters for training - Based on lib/models.py
+model_params:
+  LogisticRegression:
+    class_weight: balanced
+    max_iter: !!int 5000
+    n_jobs: !!int 4
+    tol: !!float 0.0001
+  DecisionTreeClassifier:
+    class_weight: balanced
+    max_depth: !!int 50
+    min_samples_leaf: !!int 20
+    min_samples_split: !!int 20
+  KNeighborsClassifier:
+    n_neighbors: !!int 10
+    weights: uniform
+  SVC:
+    class_weight: balanced
+    kernel: poly
+    tol: !!float 1e-07
+  BaggingClassifier:
+    n_estimators: !!int 100
+  RandomForestClassifier:
+    class_weight: balanced
+    max_depth: !!int 50
+    min_samples_leaf: !!int 1
+    min_samples_split: !!int 100
+    n_estimators: !!int 100
+  MLPClassifier:
+    hidden_layer_sizes: !!python/tuple [50, 20]
+    max_iter: !!int 500
+  AdaBoostClassifier:
+    base_estimator: !!python/BaggingClassifier {n_estimators: 100}
+    n_estimators: 500
+    learning_rate: 0.001
+
+# Sensor(s) for training based on location
+tr_sensor_locations:
+  - L1
+  - L2
+  - L3
+
+# Trained model save location
+model_save_directory: trained_models
