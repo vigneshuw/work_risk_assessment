@@ -26,13 +26,28 @@ The work has been published in NAMRC52, and the citation can be found below,
 
 To run the code in this repository, follow these steps
 
+1. Data to placed in the directory `/data`
+2. Update the training configuration inside the file `training_config.yml`
+
+```shell
+nano training_config.yml
+```
+
+3. Training the models
+
+```shell
+python training.py
+```
+
+The training process should start running at this point and the trained model along the results from the training process will be stored under the directory specified in `training_config.yml` file.
+
+
 ## Data
 
 For the data used to train the models, please reach out to the authors of the paper or the owner of this repository
 
 ## TODO
 
-- [ ] A `main.py` to train and output the model
 - [ ] More Information on the work performed
 
 ## Acknowledgement
